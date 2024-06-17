@@ -1,26 +1,42 @@
-// screens/ItemDetailPage.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, Button, StyleSheet } from "react-native";
+import axios from "axios";
 
 function ItemDetailPage({ route, navigation }) {
-  const { itemId } = route.params; // Assume itemId is passed from navigation
+  const { item } = route.params;
+  const [audioFile, setAudioFile] = useState(null);
 
-  // Placeholder details for the item
-  const item = {
-    title: "Sample Title",
-    description: "This is a sample description of the item.",
-    imageUrl: "https://via.placeholder.com/150",
-  };
+  useEffect(() => {
+    const fetchAudio = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/api/attractions/audio/${item.audioSource}`,
+          { responseType: "blob" }
+        );
+        setAudioFile(response.data);
+      } catch (error) {
+        console.error("Failed to fetch audio:", error);
+      }
+    };
+
+    fetchAudio();
+  }, [item]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{item.title}</Text>
-      <Image source={{ uri: item.imageUrl }} style={styles.image} />
+      <Text style={styles.title}>{item.name}</Text>
+      <Text>
+        {item.city}, {item.state}, {item.country}
+      </Text>
+      <Image
+        source={{ uri: "https://via.placeholder.com/150" }}
+        style={styles.image}
+      />
       <Text style={styles.description}>{item.description}</Text>
       <Button
         title="Play Audio"
         onPress={() => {
-          /* Audio play logic here */
+          /* Logic to play audio */
         }}
       />
     </View>
