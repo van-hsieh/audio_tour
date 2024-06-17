@@ -1,9 +1,12 @@
 const db = require("../config/db");
 
 class Attraction {
-  static async getAllAttractions() {
+  static async getAllAttractions(limit = 20, offset = 0) {
     try {
-      const result = await db.query("SELECT * FROM attractions");
+      const result = await db.query(
+        "SELECT * FROM attractions LIMIT $1 OFFSET $2",
+        [limit, offset]
+      );
       return result.rows;
     } catch (err) {
       throw err;

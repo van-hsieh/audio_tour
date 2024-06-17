@@ -5,7 +5,10 @@ const path = require("path");
 const Attraction = require("../models/attractionModel");
 
 router.get("/", async (req, res) => {
-  const rows = await Attraction.getAllAttractions();
+  const limit = 20;
+  const page = parseInt(req.query.page) || 0; // default to first page if no page query is provided
+  const offset = page * limit;
+  const rows = await Attraction.getAllAttractions(limit, offset);
   res.status(200).json(rows);
 });
 
