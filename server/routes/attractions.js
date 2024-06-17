@@ -24,6 +24,7 @@ router.get("/audio/:file_path", async (req, res) => {
   const { file_path } = req.params;
   const filePath = path.join(__dirname, "..", "..", "audio_files", file_path);
   res.sendFile(filePath);
+  console.log("fetched audio file");
 });
 
 // serch for attractions by name

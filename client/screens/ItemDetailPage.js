@@ -1,26 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, Button, StyleSheet } from "react-native";
-import axios from "axios";
+import { Audio } from "expo-av";
 
-function ItemDetailPage({ route, navigation }) {
+function ItemDetailPage({ route }) {
   const { item } = route.params;
-  const [audioFile, setAudioFile] = useState(null);
+  const [sound, setSound] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    const fetchAudio = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:4000/api/attractions/audio/${item.audio_source}`,
-          { responseType: "blob" }
-        );
-        setAudioFile(response.data);
-      } catch (error) {
-        console.error("Failed to fetch audio:", error);
-      }
-    };
+    loadAudio();
 
-    fetchAudio();
-  }, [item]);
+    return () => {
+      sound?.unloadAsync(); // Ensure the sound is unloaded when the component is unmounted
+    };
+  }, []);
+
+  async function loadAudio() {
+    const { sound } = await Audio.Sound.createAsync(
+      {
+        uri: `http://localhost:4000/api/attractions/audio/test_audio1.mp3`,
+      },
+      { shouldPlay: false }
+    );
+    setSound(sound);
+  }
+
+  const togglePlayback = async () => {
+    if (sound) {
+      if (isPlaying) {
+        await sound.pauseAsync();
+        setIsPlaying(false);
+      } else {
+        await sound.playAsync();
+        setIsPlaying(true);
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -33,12 +48,7 @@ function ItemDetailPage({ route, navigation }) {
         style={styles.image}
       />
       <Text style={styles.description}>{item.description}</Text>
-      <Button
-        title="Play Audio"
-        onPress={() => {
-          /* Logic to play audio */
-        }}
-      />
+      <Button title={isPlaying ? "Pause" : "Play"} onPress={togglePlayback} />
     </View>
   );
 }

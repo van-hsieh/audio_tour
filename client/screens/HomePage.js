@@ -8,8 +8,11 @@ import {
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { fetchAttractions } from "../services/api"; // make sure the path is correct
+
+const imageUrl = "http://localhost:4000/images";
 
 function HomePage({ navigation }) {
   const [items, setItems] = useState([]);
@@ -44,7 +47,18 @@ function HomePage({ navigation }) {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate("Detail", { item })}>
-      <Text style={styles.itemText}>{item.name}</Text>
+      <View style={styles.itemContainer}>
+        <Image
+          source={{ uri: `${imageUrl}/${item.thumbnail_url}` }}
+          style={{ width: 128, height: 128 }}
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{item.name}</Text>
+          <Text>
+            {item.city}, {item.state}, {item.country}
+          </Text>
+        </View>
+      </View>
     </TouchableOpacity>
   );
   return (
