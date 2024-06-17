@@ -10,7 +10,7 @@ function ItemDetailPage({ route, navigation }) {
     const fetchAudio = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/attractions/audio/${item.audioSource}`,
+          `http://localhost:4000/api/attractions/audio/${item.audio_source}`,
           { responseType: "blob" }
         );
         setAudioFile(response.data);
