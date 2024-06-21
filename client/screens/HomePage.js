@@ -1,6 +1,7 @@
 // screens/HomePage.js
 import React, { useState, useEffect } from "react";
 import {
+  Button,
   View,
   TextInput,
   FlatList,
@@ -9,6 +10,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  SafeAreaView,
 } from "react-native";
 import { fetchAttractions } from "../services/api"; // make sure the path is correct
 
@@ -46,7 +48,9 @@ function HomePage({ navigation }) {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate("Detail", { item })}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("Detail", { item, name: item.name })}
+    >
       <View style={styles.itemContainer}>
         <Image
           source={{ uri: `${imageUrl}/${item.thumbnail_url}` }}
@@ -62,7 +66,7 @@ function HomePage({ navigation }) {
     </TouchableOpacity>
   );
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TextInput style={styles.searchInput} placeholder="Search" />
       <FlatList
         data={items}
@@ -74,7 +78,12 @@ function HomePage({ navigation }) {
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}
       />
-    </View>
+      {/* insert a button, on click, go to settings */}
+      <Button
+        title="Settings"
+        onPress={() => navigation.navigate("Settings_Stack")}
+      />
+    </SafeAreaView>
   );
 }
 

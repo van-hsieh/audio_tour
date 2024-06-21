@@ -1,7 +1,7 @@
 // services/api.js
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:4000/api";
+const API_BASE_URL = "http://127.0.0.1:4000/api";
 
 export const fetchAttractions = async (page = 0, limit = 20) => {
   try {

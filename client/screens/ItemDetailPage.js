@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Button,
+  StyleSheet,
+  SafeAreaView,
+} from "react-native";
 import { Audio } from "expo-av";
 
 function ItemDetailPage({ route }) {
@@ -18,7 +25,7 @@ function ItemDetailPage({ route }) {
   async function loadAudio() {
     const { sound } = await Audio.Sound.createAsync(
       {
-        uri: `http://localhost:4000/api/attractions/audio/test_audio1.mp3`,
+        uri: `http://localhost:4000/api/attractions/audio/${item.name}.mp3`,
       },
       { shouldPlay: false }
     );
@@ -38,7 +45,7 @@ function ItemDetailPage({ route }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{item.name}</Text>
       <Text>
         {item.city}, {item.state}, {item.country}
@@ -49,7 +56,7 @@ function ItemDetailPage({ route }) {
       />
       <Text style={styles.description}>{item.description}</Text>
       <Button title={isPlaying ? "Pause" : "Play"} onPress={togglePlayback} />
-    </View>
+    </SafeAreaView>
   );
 }
 
