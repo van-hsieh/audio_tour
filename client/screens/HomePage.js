@@ -12,7 +12,8 @@ import {
   Image,
   SafeAreaView,
 } from "react-native";
-import { fetchAttractions } from "../services/api"; // make sure the path is correct
+import { fetchAttractions } from "../services/api";
+import { globalStyles, colors } from "./GlobalStyle";
 
 const imageUrl = "http://localhost:4000/images";
 
@@ -66,7 +67,7 @@ function HomePage({ navigation }) {
     </TouchableOpacity>
   );
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={globalStyles.container}>
       <TextInput style={styles.searchInput} placeholder="Search" />
       <FlatList
         data={items}
