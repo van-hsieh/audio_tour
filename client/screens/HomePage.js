@@ -15,6 +15,7 @@ import {
 import { fetchAttractions } from "../services/api";
 import { globalStyles, colors } from "./GlobalStyle";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Card from "../components/Card";
 
 const imageUrl = "http://localhost:4000/images";
 
@@ -50,21 +51,10 @@ function HomePage({ navigation }) {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
+    <Card
+      item={item}
       onPress={() => navigation.navigate("Detail", { item, name: item.name })}
-      style={{ width: "50%", justifyContent: "center", alignItems: "center" }}
-    >
-      <View style={styles.cardContainer}>
-        <Image
-          source={{ uri: `${imageUrl}/${item.thumbnail_url}` }}
-          style={{ width: 100, height: 128 }}
-          // style={styles.cardImage}
-        />
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{item.name}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
+    />
   );
 
   return (
@@ -134,41 +124,6 @@ const styles = StyleSheet.create({
     borderColor: "#DDD",
     borderRadius: 5,
     marginBottom: 10,
-  },
-  itemContainer: {
-    width: "100%", // Ensures the container takes full width of the TouchableOpacity
-    alignItems: "center", // Aligns children (image + text container) in the center
-    marginBottom: 10, // Adds some space below each item
-    borderRadius: 10, // Rounds the corners
-    overflow: "hidden",
-  },
-  imageStyle: {
-    width: "100%", // 100% of its container's width
-    aspectRatio: 1, // Ensures the height is the same as the width
-    borderRadius: 10, // Rounds the corners
-  },
-  textContainer: {
-    // your existing styles for the text container
-  },
-  title: {
-    // your existing styles for the title
-  },
-  cardContainer: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-    marginBottom: 20,
-    overflow: "hidden",
-  },
-  cardImage: {
-    width: "100%",
-    height: 200,
-    borderRadius: 8,
-    overflow: "hidden",
   },
   searchIcon: {
     position: "absolute",
