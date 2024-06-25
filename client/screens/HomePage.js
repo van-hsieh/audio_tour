@@ -57,7 +57,7 @@ function HomePage({ navigation }) {
       <View style={styles.cardContainer}>
         <Image
           source={{ uri: `${imageUrl}/${item.thumbnail_url}` }}
-          style={{ width: 128, height: 128 }}
+          style={{ width: 100, height: 128 }}
           // style={styles.cardImage}
         />
         <View style={styles.textContainer}>
@@ -70,6 +70,7 @@ function HomePage({ navigation }) {
   return (
     <SafeAreaView style={globalStyles.saveAreaContainer}>
       <View style={globalStyles.container}>
+        {/* Top Container: search & settings */}
         <View
           style={{
             flexDirection: "row",
@@ -77,6 +78,12 @@ function HomePage({ navigation }) {
             alignItems: "center",
           }}
         >
+          <Icon
+            name="search"
+            size={20}
+            color="#000"
+            style={styles.searchIcon}
+          />
           <TextInput style={styles.searchInput} placeholder="Search" />
           <TouchableOpacity
             onPress={() => navigation.navigate("Settings_Stack")}
@@ -84,9 +91,10 @@ function HomePage({ navigation }) {
               marginBottom: 15,
             }}
           >
-            <Icon name="cog" size={30} color={colors.primary} />
+            <Icon name="cog" size={25} color="#000" />
           </TouchableOpacity>
         </View>
+        {/* Body: List of top or nearby attractions */}
         <FlatList
           data={items}
           numColumns={2}
@@ -104,18 +112,20 @@ function HomePage({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 20,
-    paddingHorizontal: 10,
-  },
   searchInput: {
+    fontSize: 18,
     width: "90%",
     height: 50,
     marginBottom: 15,
-    borderWidth: 1,
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 20,
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
+    paddingLeft: 50, // Add some padding to the left
   },
   itemText: {
     fontSize: 18,
@@ -159,6 +169,12 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 8,
     overflow: "hidden",
+  },
+  searchIcon: {
+    position: "absolute",
+    left: 15,
+    top: 15,
+    zIndex: 1,
   },
 });
 
