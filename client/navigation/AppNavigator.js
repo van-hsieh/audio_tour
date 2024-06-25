@@ -12,6 +12,7 @@ import LoginPage from "../screens/LoginPage";
 import HelpPage from "../screens/HelpPage";
 import AboutPage from "../screens/AboutPage";
 import LibraryPage from "../screens/LibraryPage";
+import RegisterPage from "../screens/RegisterPage";
 
 const HomeStack = createStackNavigator();
 const SettingsStack = createStackNavigator();
@@ -33,6 +34,7 @@ function SettingsStackScreen({ navigation }) {
         }}
       />
       <SettingsStack.Screen name="Login" component={LoginPage} />
+      <SettingsStack.Screen name="Register" component={RegisterPage} />
       <SettingsStack.Screen name="Help" component={HelpPage} />
       <SettingsStack.Screen name="About" component={AboutPage} />
     </SettingsStack.Navigator>
