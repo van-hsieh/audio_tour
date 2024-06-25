@@ -9,9 +9,14 @@ export const colors = {
 };
 
 export const globalStyles = StyleSheet.create({
+  saveAreaContainer: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
   container: {
     flex: 1,
-    padding: 50,
+    paddingTop: 20,
+    paddingHorizontal: 10,
     backgroundColor: colors.background,
   },
   title: {
